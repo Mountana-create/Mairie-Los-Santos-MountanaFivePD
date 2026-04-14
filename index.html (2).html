@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Registre de la Mairie — Los Santos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Barlow+Condensed:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   MAIRIE DE LOS SANTOS — REGISTRE OFFICIEL
+   Design: Institutionnel Haut-de-Gamme · Dark
+   ═══════════════════════════════════════════════ */
+
+:root {
+  --bg:        #060810;
+  --bg2:       #0c0f1a;
+  --bg3:       #121828;
+  --bg4:       #1a2238;
+  --border:    rgba(100,140,220,0.15);
+  --border2:   rgba(100,140,220,0.35);
+  --navy:      #0f1e3d;
+  --blue:      #1a4fbb;
+  --blue2:     #2563eb;
+  --blue-led:  #60a5fa;
+  --silver:    #b0c4e0;
+  --gold:      #d4aa50;
+  --white:     #e8edf8;
+  --muted:     #4a5570;
+  --muted2:    #7a8aaa;
+  --red:       #dc2626;
+  --green:     #16a34a;
+  --shadow:    0 30px 80px rgba(0,0,0,0.9);
+  --glass:     rgba(12,15,26,0.8);
+  --radius:    14px;
+  --font-h:    'Cormorant Garamond', Georgia, serif;
+  --font-b:    'Barlow Condensed', sans-serif;
+  --font-m:    'JetBrains Mono', monospace;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="light"] {
+  --bg:        #eef1f8;
+  --bg2:       #e2e7f5;
+  --bg3:       #d4dbee;
+  --bg4:       #c5cfe8;
+  --border:    rgba(30,80,180,0.15);
+  --border2:   rgba(30,80,180,0.35);
+  --white:     #0f1e3d;
+  --muted:     #6b7280;
+  --muted2:    #374151;
+  --glass:     rgba(235,240,255,0.88);
+  --shadow:    0 30px 80px rgba(0,0,0,0.15);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:var(--font-b);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ── WATERMARK ── */
+.watermark{
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;z-index:0;opacity:0.04;
+}
+
+/* ── ANIMATED BACKGROUND ── */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(26,79,187,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,79,187,0.05) 1px, transparent 1px);
+  background-size:50px 50px;
+}
+.bg-glow{
+  position:fixed;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(ellipse, rgba(37,99,235,0.06) 0%, transparent 70%);
+  pointer-events:none;z-index:0;
+  top:-100px;left:50%;transform:translateX(-50%);
+}
+
+/* ── HEADER ── */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:72px;
+  background:rgba(6,8,16,0.94);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(24px) saturate(1.4);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;
+}
+[data-theme="light"] .header{background:rgba(238,241,248,0.94)}
+
+.header-brand{display:flex;align-items:center;gap:1.2rem}
+.header-logo{width:46px;height:46px;flex-shrink:0}
+
+.brand-divider{
+  width:1px;height:36px;
+  background:linear-gradient(180deg,transparent,var(--border2),transparent);
+}
+
+.brand-texts{}
+.brand-top{
+  font-family:var(--font-b);
+  font-size:0.62rem;font-weight:600;letter-spacing:0.22em;
+  color:var(--blue-led);text-transform:uppercase;line-height:1;margin-bottom:2px;
+}
+.brand-main{
+  font-family:var(--font-h);
+  font-size:1.3rem;font-weight:700;
+  color:var(--white);letter-spacing:0.03em;line-height:1.1;
+}
+.brand-sub{
+  font-size:0.58rem;letter-spacing:0.14em;color:var(--muted2);
+  text-transform:uppercase;
+}
+
+.header-center{
+  position:absolute;left:50%;transform:translateX(-50%);
+  font-family:var(--font-b);font-size:0.68rem;
+  letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;
+}
+
+.header-right{display:flex;align-items:center;gap:0.75rem}
+
+.clock{
+  font-family:var(--font-m);font-size:0.78rem;
+  color:var(--blue-led);letter-spacing:0.05em;
+  background:var(--bg3);border:1px solid var(--border);
+  padding:0.3rem 0.75rem;border-radius:6px;
+}
+
+.theme-toggle{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:20px;padding:0.3rem 0.7rem;
+  cursor:pointer;font-size:0.78rem;color:var(--muted2);
+  display:flex;align-items:center;gap:0.4rem;
+  transition:var(--transition);font-family:var(--font-b);
+}
+.theme-toggle:hover{border-color:var(--border2);color:var(--blue-led)}
+
+/* ── MAIN ── */
+.main{
+  position:relative;z-index:2;
+  min-height:100vh;
+  padding:100px 1.5rem 6rem;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+/* ── VIEW ── */
+.view{display:none}
+.view.active{display:block;animation:fadeUp 0.5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── AUTH WRAP ── */
+.auth-wrap{width:100%;max-width:500px;margin:0 auto}
+
+/* ── SEAL ── */
+.auth-eyebrow{text-align:center;margin-bottom:2.5rem}
+.seal-container{
+  display:inline-flex;flex-direction:column;align-items:center;gap:0.8rem;
+}
+.seal-svg{
+  width:100px;height:100px;
+  filter:drop-shadow(0 0 24px rgba(26,79,187,0.4));
+}
+.auth-title{
+  font-family:var(--font-h);
+  font-size:2.2rem;font-weight:700;
+  color:var(--white);letter-spacing:0.03em;
+  line-height:1;
+}
+.auth-subtitle{
+  font-size:0.7rem;letter-spacing:0.18em;color:var(--muted2);
+  text-transform:uppercase;margin-top:0.3rem;
+}
+
+/* ── GLASS CARD ── */
+.glass-card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:2.2rem 2rem;
+  backdrop-filter:blur(32px) saturate(1.3);
+  box-shadow:var(--shadow),
+    inset 0 1px 0 rgba(255,255,255,0.03),
+    0 0 0 1px rgba(26,79,187,0.05);
+  position:relative;overflow:hidden;
+}
+
+.glass-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(96,165,250,0.5),transparent);
+}
+
+/* Top-right ornament */
+.card-ornament{
+  position:absolute;top:-1px;right:-1px;
+  width:80px;height:80px;
+  border-top:1px solid rgba(96,165,250,0.4);
+  border-right:1px solid rgba(96,165,250,0.4);
+  border-radius:0 var(--radius) 0 0;
+}
+.card-ornament-bl{
+  position:absolute;bottom:-1px;left:-1px;
+  width:80px;height:80px;
+  border-bottom:1px solid rgba(96,165,250,0.2);
+  border-left:1px solid rgba(96,165,250,0.2);
+  border-radius:0 0 0 var(--radius);
+}
+
+/* ── SECTION TITLE ── */
+.section-label{
+  font-family:var(--font-b);font-size:0.62rem;
+  font-weight:700;letter-spacing:0.2em;color:var(--blue-led);
+  text-transform:uppercase;margin-bottom:1rem;
+  padding-bottom:0.5rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.section-label::before{
+  content:'';display:block;
+  width:3px;height:10px;border-radius:1px;
+  background:var(--blue-led);
+}
+
+/* ── FORM ── */
+.form-group{display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1rem}
+.form-label{
+  font-size:0.62rem;font-weight:600;letter-spacing:0.16em;
+  color:var(--muted2);text-transform:uppercase;
+}
+.form-input,.form-select{
+  background:rgba(6,8,16,0.5);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--white);
+  font-family:var(--font-b);font-size:1rem;font-weight:500;
+  padding:0.65rem 1rem;
+  outline:none;
+  transition:var(--transition);
+  -webkit-appearance:none;
+}
+.form-input:focus,.form-select:focus{
+  border-color:var(--blue2);
+  box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+}
+.form-input::placeholder{color:var(--muted)}
+.form-select option{background:#0c0f1a;color:var(--white)}
+[data-theme="light"] .form-input,[data-theme="light"] .form-select{background:rgba(255,255,255,0.55)}
+[data-theme="light"] .form-select option{background:#e2e7f5}
+
+.select-wrap{position:relative}
+.select-wrap::after{content:'▾';position:absolute;right:0.9rem;top:50%;transform:translateY(-50%);color:var(--blue-led);pointer-events:none}
+
+.pass-wrap{position:relative}
+.pass-toggle{
+  position:absolute;right:0.9rem;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.85rem;
+  transition:var(--transition);padding:0;
+}
+.pass-toggle:hover{color:var(--blue-led)}
+
+/* ── BUTTON PRIMARY ── */
+.btn-primary{
+  width:100%;
+  background:linear-gradient(135deg,var(--blue2),var(--blue));
+  color:#fff;
+  font-family:var(--font-b);font-size:1rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.9rem;border-radius:9px;border:none;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:var(--transition);
+  box-shadow:0 4px 20px rgba(37,99,235,0.3);
+}
+.btn-primary::before{
+  content:'';
+  position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
+  transition:left 0.5s ease;
+}
+.btn-primary:hover::before{left:100%}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(37,99,235,0.4)}
+.btn-primary:active{transform:translateY(0)}
+
+.btn-discord{
+  width:100%;margin-top:0.75rem;
+  background:rgba(88,101,242,0.12);
+  border:1px solid rgba(88,101,242,0.3);
+  color:#a8b0ff;
+  font-family:var(--font-b);font-size:0.9rem;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.7rem;border-radius:8px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+  text-decoration:none;transition:var(--transition);
+}
+.btn-discord:hover{background:rgba(88,101,242,0.22);border-color:rgba(88,101,242,0.5)}
+
+.btn-secondary{
+  background:var(--bg3);border:1px solid var(--border);
+  color:var(--muted2);font-family:var(--font-b);
+  font-size:0.85rem;font-weight:600;letter-spacing:0.08em;
+  padding:0.5rem 1.2rem;border-radius:7px;cursor:pointer;
+  transition:var(--transition);text-transform:uppercase;
+}
+.btn-secondary:hover{border-color:var(--border2);color:var(--blue-led)}
+
+.btn-danger{
+  background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);
+  color:#fca5a5;font-family:var(--font-b);
+  font-size:0.78rem;font-weight:600;letter-spacing:0.08em;
+  padding:0.4rem 1rem;border-radius:6px;cursor:pointer;
+  transition:var(--transition);text-transform:uppercase;
+}
+.btn-danger:hover{background:rgba(220,38,38,0.2)}
+
+/* ── DIVIDER ── */
+.divider{
+  display:flex;align-items:center;gap:0.8rem;
+  margin:1rem 0;color:var(--muted);font-size:0.68rem;
+  letter-spacing:0.1em;text-transform:uppercase;font-family:var(--font-b);
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── ALERT ── */
+.alert{
+  border-radius:8px;padding:0.9rem 1.1rem;
+  font-family:var(--font-m);font-size:0.76rem;
+  margin-bottom:1rem;display:none;
+  animation:fadeUp 0.3s ease;border-left:3px solid;
+}
+.alert.show{display:flex;align-items:flex-start;gap:0.5rem}
+.alert-error{background:rgba(220,38,38,0.08);border-color:var(--red);color:#fca5a5}
+.alert-success{background:rgba(22,163,74,0.08);border-color:var(--green);color:#86efac}
+.alert-info{background:rgba(37,99,235,0.08);border-color:var(--blue2);color:#93c5fd}
+.alert-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
+.alert-title{font-weight:700;letter-spacing:0.04em;margin-bottom:0.1rem}
+.alert-sub{opacity:0.8;font-size:0.7rem}
+
+/* ── BADGE ── */
+.badge{
+  display:inline-flex;align-items:center;gap:0.25rem;
+  font-family:var(--font-b);font-size:0.65rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.2rem 0.65rem;border-radius:4px;
+}
+.badge-blue{background:rgba(37,99,235,0.12);color:var(--blue-led);border:1px solid rgba(37,99,235,0.3)}
+.badge-gold{background:rgba(212,170,80,0.12);color:var(--gold);border:1px solid rgba(212,170,80,0.3)}
+.badge-green{background:rgba(22,163,74,0.12);color:#4ade80;border:1px solid rgba(22,163,74,0.3)}
+.badge-red{background:rgba(220,38,38,0.12);color:#fca5a5;border:1px solid rgba(220,38,38,0.3)}
+.badge-silver{background:rgba(176,196,224,0.1);color:var(--silver);border:1px solid rgba(176,196,224,0.2)}
+.badge-muted{background:rgba(74,85,112,0.15);color:var(--muted2);border:1px solid rgba(74,85,112,0.2)}
+
+/* ── DASHBOARD ── */
+.dashboard{max-width:1100px;margin:0 auto;width:100%}
+
+.dash-header{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.5rem 2rem;
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  position:relative;overflow:hidden;
+}
+.dash-header::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--blue2),var(--blue-led));
+}
+
+.dash-welcome-tag{font-size:0.62rem;letter-spacing:0.18em;color:var(--green);text-transform:uppercase;margin-bottom:0.2rem;font-weight:700}
+.dash-welcome-name{font-family:var(--font-h);font-size:2rem;font-weight:700;color:var(--white);line-height:1}
+.dash-welcome-info{font-size:0.82rem;color:var(--muted2);margin-top:0.2rem}
+
+/* ── TABS ── */
+.dash-tabs{
+  display:flex;gap:0.25rem;flex-wrap:wrap;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:11px;padding:0.4rem;
+  margin-bottom:1.5rem;
+}
+.dash-tab{
+  flex:1;min-width:100px;background:none;border:none;
+  color:var(--muted2);font-family:var(--font-b);
+  font-size:0.8rem;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;padding:0.55rem 1rem;
+  border-radius:8px;cursor:pointer;transition:var(--transition);
+}
+.dash-tab.active{background:var(--bg4);color:var(--blue-led);border:1px solid var(--border)}
+.dash-tab:hover:not(.active){color:var(--white)}
+
+/* ── STAT GRID ── */
+.stat-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;margin-bottom:1.5rem;
+}
+.stat-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.25rem 1.5rem;
+  position:relative;overflow:hidden;transition:var(--transition);
+}
+.stat-card:hover{border-color:var(--border2)}
+.stat-card::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--blue2);
+}
+.stat-card-label{font-size:0.65rem;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:0.4rem}
+.stat-card-value{font-family:var(--font-h);font-size:2rem;font-weight:700;color:var(--blue-led);line-height:1}
+.stat-card-sub{font-size:0.72rem;color:var(--muted2);margin-top:0.2rem}
+
+/* ── PANEL ── */
+.panel{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;
+}
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:0.5rem;
+  margin-bottom:1.25rem;padding-bottom:0.75rem;
+  border-bottom:1px solid var(--border);
+}
+.panel-title{
+  font-family:var(--font-b);font-size:0.8rem;font-weight:700;
+  letter-spacing:0.14em;color:var(--blue-led);text-transform:uppercase;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.panel-title::before{content:'';display:block;width:3px;height:13px;border-radius:1px;background:var(--blue2)}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto}
+.data-table{width:100%;border-collapse:collapse;font-size:0.86rem}
+.data-table th{
+  background:var(--bg3);color:var(--muted);
+  font-family:var(--font-b);font-size:0.62rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  padding:0.75rem 1rem;text-align:left;
+  border-bottom:1px solid var(--border);white-space:nowrap;
+}
+.data-table td{
+  padding:0.75rem 1rem;
+  border-bottom:1px solid rgba(30,50,100,0.2);
+  vertical-align:middle;
+}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(37,99,235,0.03)}
+.data-table .row-fail td{background:rgba(220,38,38,0.04)}
+
+.mono{font-family:var(--font-m);font-size:0.78rem;color:var(--blue-led)}
+
+/* ── CREDS ── */
+.creds-table{background:var(--bg3);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.cred-row{display:grid;grid-template-columns:1.2fr 1.5fr 1fr;padding:0.6rem 1rem;border-bottom:1px solid var(--border);font-size:0.82rem}
+.cred-row:last-child{border-bottom:none}
+.cred-row.header{background:var(--bg4);font-family:var(--font-b);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0.5rem 1rem}
+.cred-pass{font-family:var(--font-m);font-size:0.72rem;color:var(--blue-led)}
+
+/* ── SEARCH ── */
+.search-bar{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1rem}
+.search-input{
+  flex:1;min-width:200px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:7px;color:var(--white);
+  font-family:var(--font-b);font-size:0.9rem;
+  padding:0.5rem 0.9rem;outline:none;transition:var(--transition);
+}
+.search-input:focus{border-color:var(--border2)}
+.search-input::placeholder{color:var(--muted)}
+
+/* ── REGISTRE FORM GRID ── */
+.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.reg-grid{grid-template-columns:1fr}}
+
+/* ── FOOTER ── */
+.footer{
+  position:relative;z-index:2;
+  background:rgba(6,8,16,0.97);
+  border-top:1px solid var(--border);
+  padding:2rem 2.5rem;
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+}
+[data-theme="light"] .footer{background:rgba(238,241,248,0.97)}
+
+.footer-brand{
+  font-family:var(--font-h);font-size:1.1rem;font-weight:600;
+  color:var(--white);letter-spacing:0.05em;
+}
+.footer-sub{font-size:0.68rem;letter-spacing:0.18em;color:var(--blue-led);text-transform:uppercase;margin-bottom:0.2rem}
+.footer-legal{color:var(--muted);font-size:0.7rem;line-height:1.9;text-align:center}
+.footer-legal strong{color:var(--muted2)}
+
+/* ── LOADER ── */
+.loading-overlay{
+  position:fixed;inset:0;z-index:999;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;
+  transition:opacity 0.5s ease;
+}
+.loading-overlay.hide{opacity:0;pointer-events:none}
+.loading-bar{
+  width:200px;height:2px;background:var(--bg3);border-radius:1px;overflow:hidden;
+}
+.loading-bar-inner{
+  width:0%;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-led));
+  border-radius:1px;animation:loadBar 1.2s ease forwards;
+}
+@keyframes loadBar{to{width:100%}}
+.loading-text{font-family:var(--font-m);font-size:0.72rem;color:var(--muted);letter-spacing:0.1em}
+.loading-title{font-family:var(--font-h);font-size:1.5rem;color:var(--white);letter-spacing:0.05em}
+
+/* ── SHAKE ── */
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.shake{animation:shake 0.5s ease}
+
+/* ── MEDIA ── */
+@media(max-width:768px){
+  .header{padding:0 1rem}
+  .header-center{display:none}
+  .main{padding:90px 0.75rem 4rem}
+  .glass-card{padding:1.5rem 1.25rem}
+  .dash-header{padding:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loading-overlay" id="loader">
+  <svg width="70" height="70" viewBox="0 0 120 120">
+    <g transform="translate(60,60)">
+      <circle cx="0" cy="0" r="50" fill="none" stroke="rgba(37,99,235,0.2)" stroke-width="1"/>
+      <circle cx="0" cy="0" r="42" fill="none" stroke="rgba(37,99,235,0.15)" stroke-width="0.5"/>
+      <polygon points="0,-40 8,-16 34,-26 18,-4 40,0 20,12 26,36 0,24 -26,36 -20,12 -40,0 -18,-4 -34,-26 -8,-16" fill="rgba(37,99,235,0.3)"/>
+      <text y="5" text-anchor="middle" fill="#60a5fa" font-family="Cormorant Garamond,serif" font-size="11" font-weight="700" letter-spacing="1">LS</text>
+    </g>
+  </svg>
+  <div class="loading-title">Mairie de Los Santos</div>
+  <div class="loading-bar"><div class="loading-bar-inner"></div></div>
+  <div class="loading-text">CHARGEMENT DU REGISTRE OFFICIEL...</div>
+</div>
+
+<!-- WATERMARK -->
+<div class="watermark">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:min(65vw,500px)">
+    <g transform="translate(100,100)">
+      <circle cx="0" cy="0" r="90" fill="none" stroke="#1a4fbb" stroke-width="2"/>
+      <circle cx="0" cy="0" r="80" fill="none" stroke="#1a4fbb" stroke-width="0.5"/>
+      <polygon points="0,-65 9,-22 46,-37 25,-6 55,0 27,16 36,50 0,33 -36,50 -27,16 -55,0 -25,-6 -46,-37 -9,-22" fill="none" stroke="#1a4fbb" stroke-width="1.5"/>
+      <text y="0" text-anchor="middle" fill="#1a4fbb" font-family="Cormorant Garamond,serif" font-size="14" font-weight="700">MAIRIE</text>
+      <text y="18" text-anchor="middle" fill="#1a4fbb" font-family="Barlow Condensed,sans-serif" font-size="8" letter-spacing="4">LOS SANTOS</text>
+      <text y="-70" text-anchor="middle" fill="#1a4fbb" font-family="Barlow Condensed,sans-serif" font-size="7" letter-spacing="3">GOUVERNEMENT · SAN ANDREAS</text>
+      <text y="80" text-anchor="middle" fill="#1a4fbb" font-family="Barlow Condensed,sans-serif" font-size="6" letter-spacing="3">REGISTRE OFFICIEL</text>
+    </g>
+  </svg>
+</div>
+
+<!-- BG EFFECTS -->
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-brand">
+    <!-- Logo Mairie / Gouvernement de San Andreas -->
+    <svg class="header-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(50,50)">
+        <circle cx="0" cy="0" r="46" fill="none" stroke="#1a4fbb" stroke-width="1.5"/>
+        <circle cx="0" cy="0" r="40" fill="#060810" stroke="#2563eb" stroke-width="0.8"/>
+        <polygon points="0,-30 4,-11 21,-17 12,-3 26,0 12,7 16,24 0,16 -16,24 -12,7 -26,0 -12,-3 -21,-17 -4,-11" fill="none" stroke="#60a5fa" stroke-width="1"/>
+        <text y="4" text-anchor="middle" fill="#60a5fa" font-family="Cormorant Garamond,serif" font-size="10" font-weight="700">LS</text>
+        <text y="-48" text-anchor="middle" fill="#2563eb" font-family="Barlow Condensed,sans-serif" font-size="6" font-weight="600" letter-spacing="2">GOUVERNEMENT</text>
+        <text y="47" text-anchor="middle" fill="#60a5fa" font-family="Barlow Condensed,sans-serif" font-size="5" letter-spacing="2">SAN ANDREAS</text>
+      </g>
+    </svg>
+    <div class="brand-divider"></div>
+    <div class="brand-texts">
+      <div class="brand-top">Gouvernement · San Andreas</div>
+      <div class="brand-main">Mairie de Los Santos</div>
+      <div class="brand-sub">Portail Institutionnel · Registre Officiel</div>
+    </div>
+  </div>
+  <div class="header-center" id="header-session-info"></div>
+  <div class="header-right">
+    <div class="clock" id="clock">--:--:--</div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span id="theme-icon">☀️</span>
+      <span id="theme-label">Clair</span>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ── VIEW AUTH ── -->
+  <div class="view active" id="view-auth">
+    <div class="auth-wrap">
+
+      <div class="auth-eyebrow">
+        <div class="seal-container">
+          <svg class="seal-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(60,60)">
+              <circle cx="0" cy="0" r="54" fill="rgba(6,8,16,0.8)" stroke="#1a4fbb" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="47" fill="none" stroke="rgba(37,99,235,0.4)" stroke-width="0.5"/>
+              <polygon points="0,-38 5,-14 26,-20 14,-4 32,0 16,9 20,30 0,20 -20,30 -16,9 -32,0 -14,-4 -26,-20 -5,-14" fill="none" stroke="#60a5fa" stroke-width="1.2"/>
+              <circle cx="0" cy="0" r="18" fill="rgba(37,99,235,0.2)" stroke="#2563eb" stroke-width="1"/>
+              <text y="4" text-anchor="middle" fill="#93c5fd" font-family="Cormorant Garamond,serif" font-size="13" font-weight="700">LS</text>
+              <text y="-40" text-anchor="middle" fill="#60a5fa" font-family="Barlow Condensed,sans-serif" font-size="6" font-weight="600" letter-spacing="2.5">MAIRIE · LOS SANTOS</text>
+              <text y="46" text-anchor="middle" fill="#4a9fd4" font-family="Barlow Condensed,sans-serif" font-size="5.5" letter-spacing="2">GOUVERNEMENT DE SAN ANDREAS</text>
+            </g>
+          </svg>
+          <div>
+            <div class="auth-title">Authentification</div>
+            <div class="auth-subtitle">Registre Officiel — Accès Réservé aux Agents Municipaux</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card" id="auth-card">
+        <div class="card-ornament"></div>
+        <div class="card-ornament-bl"></div>
+
+        <div id="auth-alert" class="alert"></div>
+
+        <div class="section-label">Identification</div>
+
+        <div class="form-group">
+          <label class="form-label">Identifiant</label>
+          <input type="text" class="form-input" id="inp-id" placeholder="Ex : M.Dupont · A.Santos" autocomplete="off"/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Station / Bureau</label>
+          <div class="select-wrap">
+            <select class="form-select" id="inp-station">
+              <option value="">— Sélectionner votre bureau —</option>
+              <option value="Hôtel de Ville"> Hôtel de Ville</option>
+              <option value="Bureau Central"> Bureau Central</option>
+              <option value="Cabinet du Maire"> Cabinet du Maire</option>
+              <option value="Mission Row"> Mission Row</option>
+              <option value="Vinewood"> Vinewood</option>
+              <option value="Vespucci"> Vespucci</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Fonction / Grade</label>
+          <div class="select-wrap">
+            <select class="form-select" id="inp-grade">
+              <option value="">— Sélectionner votre fonction —</option>
+              <option value="Maire"> Maire</option>
+              <option value="Adjoint au Maire"> Adjoint au Maire</option>
+              <option value="Chef de Cabinet"> Chef de Cabinet</option>
+              <option value="Commissioner"> Commissioner</option>
+              <option value="Chief"> Chief</option>
+              <option value="Assistant Chief"> Assistant Chief</option>
+              <option value="Deputy Chief"> Deputy Chief</option>
+              <option value="Commander"> Commander</option>
+              <option value="Captain I,II,III"> Captain I,II,III</option>
+              <option value="Lieutenant I,II"> Lieutenant I,II</option>
+              <option value="Sergeant I,II"> Sergeant I,II</option>
+              <option value="Police Officer I,II,III,III + I"> Police Officer I,II,III,III + I</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de Passe Sécurisé</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-input" id="inp-pass" placeholder="••••••••••••••" onkeydown="if(event.key==='Enter')login()"/>
+            <button class="pass-toggle" onclick="togglePass()">👁</button>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="login()">
+          ⚖️ Accéder au Registre
+        </button>
+
+        <div class="divider">ou</div>
+
+        <a href="https://discord.gg/8gwehkEaNZ" target="_blank" class="btn-discord">
+          <svg width="16" height="16" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+          Se connecter via Discord
+        </a>
+        <p style="text-align:center;margin-top:0.7rem;font-size:0.65rem;color:var(--muted);letter-spacing:0.04em">
+          OAuth2 Discord — Variables ID/Token réservées pour configuration
+        </p>
+      </div>
+
+      <div style="margin-top:1rem;text-align:center">
+        <button class="btn-secondary" onclick="toggleCreds()">🔑 Codes d'accès (Administrateur)</button>
+      </div>
+      <div id="creds-panel" style="display:none;margin-top:1rem">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Codes d'Accès Municipaux</div>
+            <span class="badge badge-red">RÉSERVÉ</span>
+          </div>
+          <div class="creds-table" id="creds-list"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── VIEW DASHBOARD ── -->
+  <div class="view" id="view-dash">
+    <div class="dashboard">
+
+      <div class="dash-header">
+        <div>
+          <div class="dash-welcome-tag">✅ Accès Autorisé — Registre Officiel</div>
+          <div class="dash-welcome-name" id="dash-name">—</div>
+          <div class="dash-welcome-info" id="dash-info">—</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+          <span id="dash-badge-access">—</span>
+          <button class="btn-danger" onclick="logout()">⬅ Déconnexion</button>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="dash-tabs" id="dash-tabs">
+        <button class="dash-tab active" onclick="switchTab('registre')">📜 Registre</button>
+        <button class="dash-tab" onclick="switchTab('profil')">👤 Profil</button>
+        <button class="dash-tab" id="tab-logs-btn" onclick="switchTab('logs')" style="display:none">📋 Logs</button>
+        <button class="dash-tab" id="tab-creds-btn" onclick="switchTab('creds')" style="display:none">🔑 Codes</button>
+      </div>
+
+      <!-- TAB: REGISTRE -->
+      <div id="tab-registre" class="tab-content">
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-card-label">Agents Enregistrés</div>
+            <div class="stat-card-value" id="stat-total">0</div>
+            <div class="stat-card-sub">Total dans le registre</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">En Fonctions</div>
+            <div class="stat-card-value" id="stat-actifs">0</div>
+            <div class="stat-card-sub">Agents actifs</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Suspendus</div>
+            <div class="stat-card-value" id="stat-suspendus">0</div>
+            <div class="stat-card-sub">Agents suspendus</div>
+          </div>
+        </div>
+
+        <!-- ADD FORM -->
+        <div class="panel" id="reg-form-panel">
+          <div class="panel-header">
+            <div class="panel-title">Ajouter un Agent au Registre</div>
+          </div>
+          <div id="reg-alert" class="alert"></div>
+          <div class="reg-grid">
+            <div class="form-group">
+              <label class="form-label">Prénom</label>
+              <input type="text" class="form-input" id="reg-prenom" placeholder="Prénom"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nom</label>
+              <input type="text" class="form-input" id="reg-nom" placeholder="Nom de famille"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Fonction</label>
+              <div class="select-wrap">
+                <select class="form-select" id="reg-grade">
+                  <option value="">— Sélectionner —</option>
+                  <option>Maire</option>
+                  <option>Adjoint au Maire</option>
+                  <option>Chef de Cabinet</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Bureau</label>
+              <div class="select-wrap">
+                <select class="form-select" id="reg-bureau">
+                  <option value="">— Bureau —</option>
+                  <option>Hôtel de Ville</option>
+                  <option>Bureau Central</option>
+                  <option>Cabinet du Maire</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Statut</label>
+              <div class="select-wrap">
+                <select class="form-select" id="reg-statut">
+                  <option value="actif">En Fonctions</option>
+                  <option value="suspendu">Suspendu</option>
+                  <option value="conge">En Congé</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Observations</label>
+              <input type="text" class="form-input" id="reg-notes" placeholder="Notes éventuelles..."/>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap">
+            <button class="btn-primary" style="width:auto;padding:0.65rem 2rem" onclick="addAgent()">Enregistrer l'Agent</button>
+            <button class="btn-secondary" onclick="resetRegForm()">Réinitialiser</button>
+          </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Liste des Agents Municipaux</div>
+          </div>
+          <div class="search-bar">
+            <input type="text" class="search-input" id="reg-search" placeholder="🔍 Rechercher un agent..." oninput="renderRegistre()"/>
+            <select class="form-select" style="padding:0.4rem 0.7rem;font-size:0.8rem" id="filter-statut" onchange="renderRegistre()">
+              <option value="">Tous statuts</option>
+              <option value="actif">En Fonctions</option>
+              <option value="suspendu">Suspendu</option>
+              <option value="conge">En Congé</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nom Complet</th>
+                  <th>Fonction</th>
+                  <th>Bureau</th>
+                  <th>Statut</th>
+                  <th>Date d'entrée</th>
+                  <th>Notes</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="reg-tbody">
+                <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">Aucun agent enregistré.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: PROFIL -->
+      <div id="tab-profil" class="tab-content" style="display:none">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Fiche Agent Municipal</div>
+            <span class="badge badge-blue">MAIRIE · LOS SANTOS</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+            <div><div style="font-size:0.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:.3rem">Identifiant</div><div style="font-family:var(--font-h);font-size:1.3rem;color:var(--white)" id="prof-id">—</div></div>
+            <div><div style="font-size:0.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:.3rem">Fonction</div><div style="font-family:var(--font-h);font-size:1.3rem;color:var(--blue-led)" id="prof-grade">—</div></div>
+            <div><div style="font-size:0.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:.3rem">Bureau</div><div style="font-family:var(--font-h);font-size:1.3rem;color:var(--white)" id="prof-station">—</div></div>
+            <div><div style="font-size:0.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:.3rem">Accès</div><div id="prof-access">—</div></div>
+            <div><div style="font-size:0.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:.3rem">Connexion</div><div style="font-family:var(--font-m);font-size:0.78rem;color:var(--muted2)" id="prof-time">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: LOGS -->
+      <div id="tab-logs-content" class="tab-content" style="display:none">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Journal des Connexions</div>
+            <div style="display:flex;gap:0.5rem">
+              <span class="badge badge-red">ADMIN</span>
+              <button class="btn-danger" onclick="clearLogs()">Effacer</button>
+            </div>
+          </div>
+          <div class="search-bar">
+            <input type="text" class="search-input" id="log-search" placeholder="🔍 Rechercher..." oninput="renderLogs()"/>
+            <select class="form-select" style="padding:0.4rem 0.7rem;font-size:0.8rem" id="log-filter" onchange="renderLogs()">
+              <option value="">Tous</option>
+              <option value="success">Succès</option>
+              <option value="fail">Échecs</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>#</th><th>Identifiant</th><th>Date</th><th>Heure</th><th>Bureau</th><th>Fonction</th><th>Statut</th><th>IP (sim.)</th></tr>
+              </thead>
+              <tbody id="logs-tbody">
+                <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">Aucun log.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: CODES -->
+      <div id="tab-creds-content" class="tab-content" style="display:none">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">Codes d'Accès Municipaux</div>
+            <span class="badge badge-red">CONFIDENTIEL</span>
+          </div>
+          <div class="creds-table">
+            <div class="cred-row header"><span>Fonction</span><span>Mot de Passe</span><span>Niveau d'Accès</span></div>
+            <div id="creds-dash-list"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-sub">Mountana FivePD</div>
+  <div class="footer-brand">Mairie de Los Santos — Portail Institutionnel</div>
+  <div class="footer-legal">
+    © 2026 — Réalisé par <strong>IA & Amaury & Keylian</strong> (Owners Mountana.FivePD)<br/>
+    Propriété intellectuelle protégée — Code de la Propriété Intellectuelle, Art. L.111-1 et suivants<br/>
+    Contenu fictif à usage exclusif de jeu de rôle (FiveM / FivePD) — San Andreas<br/>
+    <span style="color:var(--blue-led);font-size:0.62rem">✦ Site conçu avec l'assistance de l'intelligence artificielle</span>
+  </div>
+</footer>
+
+<script>
+// ════════════════════════════════════════════
+// MAIRIE DE LOS SANTOS — SYSTÈME OFFICIEL
+// ════════════════════════════════════════════
+
+const CREDS = {
+  "Maire":           { pass: "Maire-2026-M",   access: "all",  label: "Accès Total" },
+  "Adjoint au Maire":{ pass: "Adjoint-Maire-2026-A",  access: "all", label: "Accès Semi" },
+  "Chef de Cabinet": { pass: "Chef-Cabinet-2026-C",   access: "all", label: "Accès Semi" },
+  "Commisioner": { pass: "Commissioner-2026-C",   access: "all", label: "Accès Semi" },
+  "Chief": { pass: "Chief-2026-C",   access: "all", label: "all" },
+  "Deputy Chief": { pass: "Deputy-Chief-2026-D",   access: "all", label: "Accès Semi" },
+  "Commander": { pass: "Commander-2026-C",   access: "all", label: "Accès Semi" },
+  "Captain I,II,III": { pass: "Captain-2026-C",   access: "all", label: "Accès Semi" },
+  "Lieutenant I,II": { pass: "Lieutenant-2026-L",   access: "semi", label: "Accès Semi" },
+  "Sergeant I,II": { pass: "Sergeant-2026-S",   access: "semi", label: "Accès Semi" },
+  "Police Officer I,II,III,III + I": { pass: "Police-Officer-2026-",   access: "semi", label: "Accès Semi" },
+};
+
+let session = null;
+let regList  = JSON.parse(localStorage.getItem("mairie_reg")   || "[]");
+let logsList = JSON.parse(localStorage.getItem("mairie_logs")  || "[]");
+
+const FAKE_IPS = ["10.20.0.","192.168.4.","172.20.1.","10.50.2."];
+function fakeIP(){ return FAKE_IPS[Math.floor(Math.random()*FAKE_IPS.length)] + Math.floor(Math.random()*254+1); }
+function now(){ const d=new Date(); return {date:d.toLocaleDateString("fr-FR"),time:d.toLocaleTimeString("fr-FR")}; }
+
+// ── CLOCK ──
+function updateClock(){
+  const el = document.getElementById("clock");
+  if(el) el.textContent = new Date().toLocaleTimeString("fr-FR");
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ── LOADER ──
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    const l = document.getElementById("loader");
+    l.classList.add("hide");
+    setTimeout(()=>l.remove(),600);
+  }, 1600);
+  buildCredsList();
+  buildCredsDash();
+  updateStats();
+});
+
+// ── THEME ──
+let isDark = true;
+function toggleTheme(){
+  isDark = !isDark;
+  document.documentElement.setAttribute("data-theme", isDark?"dark":"light");
+  document.getElementById("theme-icon").textContent = isDark?"☀️":"🌙";
+  document.getElementById("theme-label").textContent = isDark?"Clair":"Sombre";
+}
+
+function togglePass(){
+  const i = document.getElementById("inp-pass");
+  i.type = i.type==="password"?"text":"password";
+}
+
+function toggleCreds(){
+  const p = document.getElementById("creds-panel");
+  p.style.display = p.style.display==="none"?"block":"none";
+}
+
+// ── ACCESS BADGE ──
+function accessBadge(acc){
+  if(acc==="all")  return `<span class="badge badge-gold">Accès Total</span>`;
+  if(acc==="semi") return `<span class="badge badge-blue">Accès Semi</span>`;
+  if(acc==="semi") return `<span class="badge badge-Silver">Lecture</span>`;
+  return `<span class="badge badge-silver">Lecture</span>`;
+}
+
+// ── BUILD CREDS ──
+function buildCredsList(){
+  const el = document.getElementById("creds-list"); if(!el) return;
+  el.innerHTML = `<div class="cred-row header"><span>Fonction</span><span>Mot de Passe</span><span>Niveau</span></div>`;
+  Object.entries(CREDS).forEach(([grade,info])=>{
+    const d = document.createElement("div"); d.className="cred-row";
+    d.innerHTML=`<span style="font-family:var(--font-b);color:var(--white);font-weight:600">${grade}</span><span class="cred-pass">${info.pass}</span><span>${accessBadge(info.access)}</span>`;
+    el.appendChild(d);
+  });
+}
+
+function buildCredsDash(){
+  const el = document.getElementById("creds-dash-list"); if(!el) return;
+  el.innerHTML="";
+  Object.entries(CREDS).forEach(([grade,info])=>{
+    const d=document.createElement("div"); d.className="cred-row";
+    d.innerHTML=`<span style="font-family:var(--font-b);color:var(--white);font-weight:600">${grade}</span><span class="cred-pass">${info.pass}</span><span>${accessBadge(info.access)}</span>`;
+    el.appendChild(d);
+  });
+}
+
+// ── LOGIN ──
+function login(){
+  const id      = document.getElementById("inp-id").value.trim();
+  const station = document.getElementById("inp-station").value;
+  const grade   = document.getElementById("inp-grade").value;
+  const pass    = document.getElementById("inp-pass").value;
+  const alertEl = document.getElementById("auth-alert");
+
+  if(!id||!station||!grade||!pass){
+    showAlert(alertEl,"error","Champs Incomplets","Tous les champs sont obligatoires.");
+    shake(document.getElementById("auth-card")); return;
+  }
+
+  const cred = CREDS[grade];
+  const dt   = now();
+  const isOk = cred && pass === cred.pass;
+
+  logsList.unshift({id:logsList.length+1,identifiant:id,date:dt.date,time:dt.time,station,grade,status:isOk?"success":"fail",ip:fakeIP()});
+  localStorage.setItem("mairie_logs",JSON.stringify(logsList));
+
+  if(!isOk){
+    showAlert(alertEl,"error","⛔ Accès Refusé — Tentative Enregistrée",`Identifiants incorrects. Heure : ${dt.time}`);
+    shake(document.getElementById("auth-card")); return;
+  }
+
+  session = {id,station,grade,access:cred.access,label:cred.label,time:dt.time,date:dt.date};
+  showDashboard();
+}
+
+// ── DASHBOARD ──
+function showDashboard(){
+  document.getElementById("view-auth").classList.remove("active");
+  document.getElementById("view-dash").classList.add("active");
+
+  document.getElementById("dash-name").textContent = session.id;
+  document.getElementById("dash-info").textContent = `${session.grade} · ${session.station} · ${session.time}`;
+  document.getElementById("dash-badge-access").outerHTML = accessBadge(session.access);
+
+  document.getElementById("prof-id").textContent = session.id;
+  document.getElementById("prof-grade").textContent = session.grade;
+  document.getElementById("prof-station").textContent = session.station;
+  document.getElementById("prof-access").innerHTML = accessBadge(session.access);
+  document.getElementById("prof-time").textContent = `${session.date} à ${session.time}`;
+
+  document.getElementById("header-session-info").textContent = `${session.id} · ${session.grade}`;
+
+  if(session.access==="read"){
+    document.getElementById("reg-form-panel").style.display="none";
+  }
+  if(session.access==="all"){
+    document.getElementById("tab-logs-btn").style.display="flex";
+    document.getElementById("tab-creds-btn").style.display="flex";
+  }
+  renderRegistre(); renderLogs(); updateStats(); buildCredsDash();
+}
+
+// ── LOGOUT ──
+function logout(){
+  session=null;
+  document.getElementById("view-dash").classList.remove("active");
+  document.getElementById("view-auth").classList.add("active");
+  document.getElementById("inp-pass").value="";
+  document.getElementById("header-session-info").textContent="";
+}
+
+// ── TABS ──
+const TABS_MAP = {registre:"tab-registre",profil:"tab-profil",logs:"tab-logs-content",creds:"tab-creds-content"};
+function switchTab(key){
+  document.querySelectorAll(".tab-content").forEach(el=>el.style.display="none");
+  const t=document.getElementById(TABS_MAP[key]); if(t) t.style.display="block";
+  document.querySelectorAll(".dash-tab").forEach(btn=>{
+    const label=btn.textContent.toLowerCase();
+    btn.classList.toggle("active",
+      (key==="registre"&&label.includes("registre"))||
+      (key==="profil"&&label.includes("profil"))||
+      (key==="logs"&&label.includes("log"))||
+      (key==="creds"&&label.includes("code"))
+    );
+  });
+}
+
+// ── REGISTRE ──
+function saveReg(){ localStorage.setItem("mairie_reg",JSON.stringify(regList)); }
+
+function addAgent(){
+  if(session?.access==="read"){alert("⛔ Accès refusé.");return;}
+  const prenom=document.getElementById("reg-prenom").value.trim();
+  const nom=document.getElementById("reg-nom").value.trim();
+  const grade=document.getElementById("reg-grade").value;
+  const bureau=document.getElementById("reg-bureau").value;
+  const statut=document.getElementById("reg-statut").value;
+  const notes=document.getElementById("reg-notes").value.trim();
+  const al=document.getElementById("reg-alert");
+  if(!prenom||!nom||!grade||!bureau){showAlert(al,"error","Champs manquants","Complétez les champs requis.");return;}
+  regList.push({id:Date.now(),prenom,nom,grade,bureau,statut,notes,date:now().date});
+  saveReg(); resetRegForm(); renderRegistre(); updateStats();
+  showAlert(al,"success","Agent Enregistré",`${prenom} ${nom} ajouté au registre.`);
+}
+
+function resetRegForm(){
+  ["reg-prenom","reg-nom","reg-notes"].forEach(id=>{const e=document.getElementById(id);if(e)e.value="";});
+  ["reg-grade","reg-bureau"].forEach(id=>{const e=document.getElementById(id);if(e)e.value="";});
+  document.getElementById("reg-statut").value="actif";
+}
+
+function deleteAgent(id){
+  if(session?.access!=="all"){alert("⛔ Suppression : Accès Total requis.");return;}
+  if(!confirm("Retirer cet agent du registre ?")) return;
+  regList=regList.filter(a=>a.id!==id); saveReg(); renderRegistre(); updateStats();
+}
+
+function toggleStatut(id){
+  if(session?.access==="read"){alert("⛔ Accès refusé.");return;}
+  const idx=regList.findIndex(a=>a.id===id); if(idx===-1)return;
+  const cycle=["actif","conge","suspendu"];
+  const cur=cycle.indexOf(regList[idx].statut);
+  regList[idx].statut=cycle[(cur+1)%cycle.length];
+  saveReg(); renderRegistre(); updateStats();
+}
+
+function renderRegistre(){
+  const tbody=document.getElementById("reg-tbody"); if(!tbody)return;
+  const q=(document.getElementById("reg-search")?.value||"").toLowerCase();
+  const sf=document.getElementById("filter-statut")?.value||"";
+  const list=regList.filter(a=>{
+    const mq=!q||[a.prenom,a.nom,a.grade,a.bureau,a.notes].join(" ").toLowerCase().includes(q);
+    const ms=!sf||a.statut===sf;
+    return mq&&ms;
+  });
+  if(!list.length){tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">Aucun agent trouvé.</td></tr>`;return;}
+  const canEdit=session?.access==="semi"||session?.access==="all";
+  const canDel=session?.access==="all";
+  const statutBadge=s=>{
+    if(s==="actif")    return `<span class="badge badge-green">✅ En Fonctions</span>`;
+    if(s==="suspendu") return `<span class="badge badge-red">⛔ Suspendu</span>`;
+    return `<span class="badge badge-muted">🟡 En Congé</span>`;
+  };
+  tbody.innerHTML=list.map(a=>`
+    <tr class="${a.statut==="suspendu"?"row-fail":""}">
+      <td class="mono" style="color:var(--muted)">${a.id.toString().slice(-4)}</td>
+      <td style="font-family:var(--font-h);font-size:1rem;font-weight:600">${a.prenom} ${a.nom.toUpperCase()}</td>
+      <td><span class="badge badge-blue">${a.grade}</span></td>
+      <td style="color:var(--muted2)">${a.bureau}</td>
+      <td>${statutBadge(a.statut)}</td>
+      <td class="mono" style="color:var(--muted);font-size:.72rem">${a.date}</td>
+      <td style="color:var(--muted);font-size:.78rem">${a.notes||"—"}</td>
+      <td style="display:flex;gap:.3rem;flex-wrap:wrap">
+        ${canEdit?`<button class="btn-secondary" style="padding:.3rem .5rem;font-size:.68rem" onclick="toggleStatut(${a.id})">Changer</button>`:""}
+        ${canDel?`<button class="btn-danger" style="padding:.3rem .5rem;font-size:.68rem" onclick="deleteAgent(${a.id})">Retirer</button>`:""}
+        ${!canEdit&&!canDel?`<span style="color:var(--muted);font-size:.68rem">Lecture</span>`:""}
+      </td>
+    </tr>
+  `).join("");
+}
+
+function updateStats(){
+  const total=regList.length;
+  const actifs=regList.filter(a=>a.statut==="actif").length;
+  const susp=regList.filter(a=>a.statut==="suspendu").length;
+  const e1=document.getElementById("stat-total");
+  const e2=document.getElementById("stat-actifs");
+  const e3=document.getElementById("stat-suspendus");
+  if(e1)e1.textContent=total;
+  if(e2)e2.textContent=actifs;
+  if(e3)e3.textContent=susp;
+}
+
+// ── LOGS ──
+function clearLogs(){ if(!confirm("Effacer tous les logs ?")) return; logsList=[]; localStorage.setItem("mairie_logs","[]"); renderLogs(); }
+
+function renderLogs(){
+  const tbody=document.getElementById("logs-tbody"); if(!tbody)return;
+  const q=(document.getElementById("log-search")?.value||"").toLowerCase();
+  const sf=document.getElementById("log-filter")?.value||"";
+  const list=logsList.filter(l=>{
+    const mq=!q||[l.identifiant,l.date,l.time,l.station,l.grade,l.ip].join(" ").toLowerCase().includes(q);
+    const ms=!sf||l.status===sf;
+    return mq&&ms;
+  });
+  if(!list.length){tbody.innerHTML=`<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">Aucun log.</td></tr>`;return;}
+  tbody.innerHTML=list.map(l=>`
+    <tr class="${l.status==="fail"?"row-fail":""}">
+      <td class="mono" style="color:var(--muted)">#${l.id}</td>
+      <td style="font-family:var(--font-b);font-weight:600">${l.identifiant}</td>
+      <td style="color:var(--muted2)">${l.date}</td>
+      <td class="mono">${l.time}</td>
+      <td><span class="badge badge-muted">${l.station||"—"}</span></td>
+      <td><span class="badge badge-blue">${l.grade||"—"}</span></td>
+      <td>${l.status==="success"?`<span class="badge badge-green">✅ Succès</span>`:`<span class="badge badge-red">⛔ Échec</span>`}</td>
+      <td class="mono" style="color:var(--muted);font-size:.7rem">${l.ip}</td>
+    </tr>
+  `).join("");
+}
+
+// ── UTILS ──
+function showAlert(el,type,title,sub){
+  if(!el)return;
+  const icons={error:"🚫",success:"✅",info:"ℹ️"};
+  el.className=`alert alert-${type} show`;
+  el.innerHTML=`<span class="alert-icon">${icons[type]||"ℹ️"}</span><div class="alert-content"><div class="alert-title">${title}</div>${sub?`<div class="alert-sub">${sub}</div>`:""}</div>`;
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove("show"),6000);
+}
+
+function shake(el){
+  el.classList.add("shake");
+  setTimeout(()=>el.classList.remove("shake"),600);
+}
+</script>
+</body>
+</html>
