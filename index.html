@@ -785,6 +785,9 @@ body{
               <div class="select-wrap">
                 <select class="form-select" id="reg-grade">
                   <option value="">— Sélectionner —</option>
+                  <option>Maire</option>
+                  <option>Adjoint du Maire</option>
+                  <option>Cherf de Cabinet</option>
                   <option>Commissioner</option>
                   <option>Chief</option>
                   <option>Assistant Chief</option>
@@ -959,6 +962,9 @@ body{
 // ════════════════════════════════════════════
 
 const CREDS = {
+  "Maire":        { pass: "Maire-2026-M",        access: "all",  label: "Accès Total" },
+  "Adjoint au Maire":        { pass: "adjoint-maire-2026-a",        access: "all",  label: "Accès Total" },
+  "Chef de Cabinet":        { pass: "chef-cabinet-2026-c",        access: "all",  label: "Accès Total" },
   "Commissioner":        { pass: "commissioner-2026-c",        access: "all",  label: "Accès Total" },
   "Chief":               { pass: "chief-2026-c",               access: "all",  label: "Accès Total" },
   "Assistant Chief":     { pass: "assistant chief-2026-a",     access: "all",  label: "Accès Total" },
